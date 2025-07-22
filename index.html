@@ -1,27 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Water Quality Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <h1>💧 Water Quality Dashboard</h1>
 
-  <div class="metrics" id="metrics">
-    <!-- Metrics will appear here -->
+  <div class="metrics">
+    <div class="card" id="ph">pH: --</div>
+    <div class="card" id="tds">TDS: --</div>
+    <div class="card" id="turbidity">Turbidity: --</div>
+    <div class="card" id="temperature">Temperature: --</div>
   </div>
 
-  <div class="charts">
-    <div class="chart-container"><canvas id="phChart"></canvas></div>
-    <div class="chart-container"><canvas id="tdsChart"></canvas></div>
-    <div class="chart-container"><canvas id="turbidityChart"></canvas></div>
-    <div class="chart-container"><canvas id="tempChart"></canvas></div>
-  </div>
-
-  <button id="alertBtn" style="display:none;">Send Alert Email to Authorities</button>
+  <canvas id="chart" width="1000" height="400"></canvas>
 
   <script src="script.js"></script>
 </body>
