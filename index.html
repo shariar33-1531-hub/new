@@ -499,16 +499,13 @@
     border-radius: 10px;
   }
 </style>
-
-
-      <!-- Voltage, Current, and Power Section (Place this above the <footer>) -->
 <div class="power-section">
   <div class="power-card">
     <h3>Voltage (V)</h3>
     <p id="voltage-value">--</p>
   </div>
   <div class="power-card">
-    <h3>Current (A)</h3>
+    <h3>Current (mA)</h3>
     <p id="current-value">--</p>
   </div>
   <div class="power-card">
@@ -581,8 +578,8 @@ function updateDashboard(data) {
   document.getElementById('temp-value').textContent = latest['Temp C'] || '--';
 
   // Extract Voltage and Current from CSV (columns F and G assumed labeled as 'F' and 'G')
-  const voltage = parseFloat(latest['F']) || 0;
-  const current = parseFloat(latest['G']) || 0;
+  const voltage = parseFloat(latest['Voltage (V)']) || 0;
+  const current = parseFloat(latest['Current (A)']) || 0;
   const power = voltage * current;
 
   // Update the display values
