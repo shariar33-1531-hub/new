@@ -576,15 +576,13 @@ function updateDashboard(data) {
   document.getElementById('tds-value').textContent = latest['TDS mgL'] || '--';
   document.getElementById('turbidity-value').textContent = latest['Turbidity NTU'] || '--';
   document.getElementById('temp-value').textContent = latest['Temp C'] || '--';
-
-  // Extract Voltage and Current from CSV (columns F and G assumed labeled as 'F' and 'G')
   const voltage = parseFloat(latest['Voltage (V)']) || 0;
   const current = parseFloat(latest['Current (A)']) || 0;
   const power = voltage * current;
 
   // Update the display values
-  document.getElementById('voltage-value').textContent = voltage.toFixed(2);
-  document.getElementById('current-value').textContent = current.toFixed(2);
+  document.getElementById('voltage-value').textContent =  latest['Voltage (V)'] || '--';
+  document.getElementById('current-value').textContent =  latest['Current (A)'] || '--';
   document.getElementById('power-value').textContent = power.toFixed(2);
 
   // Update status indicators
@@ -592,6 +590,9 @@ function updateDashboard(data) {
   updateStatus('tds', parseFloat(latest['TDS mgL']));
   updateStatus('turbidity', parseFloat(latest['Turbidity NTU']));
   updateStatus('temp', parseFloat(latest['Temp C']));
+updateStatus('voltage', parseFloat(latest['Voltage (V)']));
+  updateStatus('current', parseFloat(latest['Current (A)']));
+    updateStatus('power');
 }
 </script>
 
