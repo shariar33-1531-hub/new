@@ -452,41 +452,57 @@
                 </div>
             </div>
         </div>
-        <!-- Data Collection Area Live View Section -->
-<div class="map-section">
-  <h2>Data Collection Area Live View</h2>
-  <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d233746.37460338767!2d90.4167424!3d23.7371392!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c39458a83a31%3A0x51758c9c7a1cb134!2z4Kah4Ka_4KaP4Ka44Ka44Ka_IOCmsuCmvuCmleCnhw!5e0!3m2!1sbn!2sbd!4v1753421657333!5m2!1sbn!2sbd" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-</iframe>
+        <div class="map-container">
+  <!-- Left Map -->
+  <div class="map-section">
+    <h2>Data Collection Area Live View</h2>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d233746.37460338767!2d90.4167424!3d23.7371392!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c39458a83a31%3A0x51758c9c7a1cb134!2z4Kah4Ka_4KaP4Ka44Ka44Ka_IOCmsuCmvuCmleCnhw!5e0!3m2!1sbn!2sbd!4v1753421657333!5m2!1sbn!2sbd" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+
+  <!-- Right Map -->
+  <div class="map-section">
+    <h2>Ground Station</h2>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4413.043574193248!2d90.3184885759677!3d23.88101118374831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c347e2c6c741%3A0x1898381e81fa8913!2sDepartment%20of%20Electrical%20and%20Electronic%20Engineering%20%2C%20DIU!5e1!3m2!1sen!2sbd!4v1754095242580!5m2!1sen!2sbd" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
 </div>
 
 <style>
+  .map-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap; /* makes it responsive */
+    margin: 50px auto;
+    max-width: 1300px;
+  }
+
   .map-section {
     background-color: #ffffff;
-    padding: 30px;
+    padding: 20px;
     border-radius: 15px;
-    max-width: 650px;
-    margin: 50px auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+    flex: 1 1 600px; /* flexible width with minimum 600px */
+    max-width: 600px;
   }
 
   .map-section h2 {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     font-family: Arial, sans-serif;
     color: #333;
   }
 
   .map-section iframe {
+    width: 100%;
+    height: 400px;
     border: none;
     border-radius: 10px;
-    width: 100%;
-    height: 450px;
   }
 </style>
 
+
         <footer>
-            <p>Water Quality Monitoring Dashboard • Developed By Jabed Shariar • WHO Standards Compliance</p>
-            <p>WHO Guidelines: pH (6.5-8.5) • TDS ≤ 600 mg/L • Turbidity ≤ 5 NTU • Temperature ≤ 30°C</p>
+            <p>Water Quality Monitoring Dashboard • © 2025 Developed By Jabed Shariar. All rights reserved</p>
         </footer>
     </div>
 
