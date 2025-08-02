@@ -501,21 +501,103 @@
 </style>
 
 
-       <footer>
-    <p>Water Quality Monitoring Dashboard</p>
-    <p>© 2025 Designed & Developed by Jabed Shariar. All rights reserved.</p>
-    <div style="margin-top: 10px; display: flex; justify-content: center; gap: 20px; font-size: 1.2rem;">
-        <a href="https://www.facebook.com/Shariar.Hassan.Jabed" target="_blank" title="Facebook" style="color: #4267B2;">
-            <i class="fab fa-facebook-square"></i>
-        </a>
-        <a href="https://www.linkedin.com/in/jabed-shariar-859304148/" target="_blank" title="LinkedIn" style="color: #0077B5;">
-            <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="mailto:shariar33-1531@diu.edu.bd" title="Email" style="color: #EA4335;">
-            <i class="fas fa-envelope"></i>
-        </a>
-    </div>
+      <!-- Voltage, Current, and Power Section (Place this above the <footer>) -->
+<div class="power-section">
+  <div class="power-card">
+    <h3>Voltage (V)</h3>
+    <p id="voltage-value">--</p>
+  </div>
+  <div class="power-card">
+    <h3>Current (A)</h3>
+    <p id="current-value">--</p>
+  </div>
+  <div class="power-card">
+    <h3>Power (W)</h3>
+    <p id="power-value">--</p>
+  </div>
+</div>
+
+<!-- Footer Section -->
+<footer>
+  <p>Water Quality Monitoring Dashboard</p>
+  <p>© 2025 Developed by Jabed Shariar. All rights reserved.</p>
+  <div style="margin-top: 10px; display: flex; justify-content: center; gap: 20px; font-size: 1.2rem;">
+    <a href="https://www.facebook.com/Shariar.Hassan.Jabed" target="_blank" title="Facebook" style="color: #4267B2;">
+      <i class="fab fa-facebook-square"></i>
+    </a>
+    <a href="https://www.linkedin.com/in/jabed-shariar-859304148/" target="_blank" title="LinkedIn" style="color: #0077B5;">
+      <i class="fab fa-linkedin"></i>
+    </a>
+    <a href="mailto:shariar33-1531@diu.edu.bd" title="Email" style="color: #EA4335;">
+      <i class="fas fa-envelope"></i>
+    </a>
+  </div>
 </footer>
+
+<!-- Add this CSS inside the <style> tag -->
+<style>
+  .power-section {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 40px auto 20px;
+    padding: 20px;
+    max-width: 1000px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #eef5ff;
+    text-align: center;
+  }
+
+  .power-card {
+    flex: 1;
+  }
+
+  .power-card h3 {
+    font-size: 1.2rem;
+    color: #202124;
+    margin-bottom: 10px;
+  }
+
+  .power-card p {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1a73e8;
+  }
+</style>
+
+<!-- Modify updateDashboard(data) in <script> section like this -->
+<script>
+function updateDashboard(data) {
+  if (data.length === 0) return;
+
+  const latest = data[data.length - 1];
+
+  // Update values for main parameters
+  document.getElementById('ph-value').textContent = latest.ph || '--';
+  document.getElementById('tds-value').textContent = latest['TDS mgL'] || '--';
+  document.getElementById('turbidity-value').textContent = latest['Turbidity NTU'] || '--';
+  document.getElementById('temp-value').textContent = latest['Temp C'] || '--';
+
+  // Extract Voltage and Current from CSV (columns F and G assumed labeled as 'F' and 'G')
+  const voltage = parseFloat(latest['F']) || 0;
+  const current = parseFloat(latest['G']) || 0;
+  const power = voltage * current;
+
+  // Update the display values
+  document.getElementById('voltage-value').textContent = voltage.toFixed(2);
+  document.getElementById('current-value').textContent = current.toFixed(2);
+  document.getElementById('power-value').textContent = power.toFixed(2);
+
+  // Update status indicators
+  updateStatus('ph', parseFloat(latest.ph));
+  updateStatus('tds', parseFloat(latest['TDS mgL']));
+  updateStatus('turbidity', parseFloat(latest['Turbidity NTU']));
+  updateStatus('temp', parseFloat(latest['Temp C']));
+}
+</script>
+
     </div>
 
     <script>
