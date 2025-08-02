@@ -499,13 +499,14 @@
     border-radius: 10px;
   }
 </style>
+<!-- Voltage, Current, and Power Section (Place this above the <footer>) -->
 <div class="power-section">
   <div class="power-card">
     <h3>Voltage (V)</h3>
     <p id="voltage-value">--</p>
   </div>
   <div class="power-card">
-    <h3>Current (mA)</h3>
+    <h3>Current (A)</h3>
     <p id="current-value">--</p>
   </div>
   <div class="power-card">
@@ -573,30 +574,53 @@ function updateDashboard(data) {
 
   // Update values for main parameters
   document.getElementById('ph-value').textContent = latest.ph || '--';
-  document.getElementById('tds-value').textContent = latest['TDS mgL'] || '--';
-  document.getElementById('turbidity-value').textContent = latest['Turbidity NTU'] || '--';
-  document.getElementById('temp-value').textContent = latest['Temp C'] || '--';
+  document.getElementById('tds-value').textContent = latest['TDS (mg/L)'] || '--';
+  document.getElementById('turbidity-value').textContent = latest['Turbidity (NTU)'] || '--';
+  document.getElementById('temp-value').textContent = latest['Temp (°C)'] || '--';
+
+  // Extract Voltage and Current from CSV
   const voltage = parseFloat(latest['Voltage (V)']) || 0;
   const current = parseFloat(latest['Current (A)']) || 0;
   const power = voltage * current;
 
   // Update the display values
-  document.getElementById('voltage-value').textContent =  latest['Voltage (V)'] || '--';
-  document.getElementById('current-value').textContent =  latest['Current (A)'] || '--';
+  document.getElementById('voltage-value').textContent = voltage.toFixed(2);
+  document.getElementById('current-value').textContent = current.toFixed(2);
   document.getElementById('power-value').textContent = power.toFixed(2);
 
   // Update status indicators
   updateStatus('ph', parseFloat(latest.ph));
-  updateStatus('tds', parseFloat(latest['TDS mgL']));
-  updateStatus('turbidity', parseFloat(latest['Turbidity NTU']));
-  updateStatus('temp', parseFloat(latest['Temp C']));
-updateStatus('voltage', parseFloat(latest['Voltage (V)']));
-  updateStatus('current', parseFloat(latest['Current (A)']));
-    updateStatus('power');
+  updateStatus('tds', parseFloat(latest['TDS (mg/L)']));
+  updateStatus('turbidity', parseFloat(latest['Turbidity (NTU)']));
+  updateStatus('temp', parseFloat(latest['Temp (°C)']));
+}
+
+function processData(csv) {
+  const lines = csv.split('\n');
+  const headers = lines[0].split(',').map(h => h.trim());
+  const data = [];
+  for (let i = 1; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line) continue;
+    const values = line.split(',');
+    const entry = {};
+    for (let j = 0; j < headers.length; j++) {
+      const header = headers[j].trim(); // <- Keep original header
+      entry[header] = values[j] ? values[j].trim() : '';
+    }
+    if (entry.Timestamp) {
+      data.push(entry);
+    }
+  }
+  const lastEntry = data[data.length - 1];
+  const lastTimestamp = lastEntry ? lastEntry.Timestamp : 'No data';
+  updateTimeEl.textContent = lastTimestamp;
+  updateDashboard(data);
+  updateCharts(data);
+  analyzeSafety(lastEntry);
 }
 </script>
 
-    </div>
 
     <script>
         // Google Sheets data URL
